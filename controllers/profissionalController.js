@@ -37,6 +37,7 @@ export const profissionalDestaca = async (req, res) => {
   }
 };
 
+//criacao
 export const profissionalCreate = async (req, res) => {
   const { nome, CPF, contato, dataNasc, especialidade, imagem, destaque } =
     req.body;
@@ -71,6 +72,7 @@ export const profissionalCreate = async (req, res) => {
   }
 };
 
+//exclusao
 export const profissionalDestroy = async (req, res) => {
   const { id } = req.params;
 
@@ -92,3 +94,32 @@ export const profissionalShow = async (req, res) => {
     res.status(400).send(error);
   }
 };
+
+export const profissionalAtualizar = async (req, res) => {
+	const { id } = req.params;
+	const { nome, CPF, contato, dataNasc, especialidade, imagem, destaque  } = req.body;
+	console.log("aqui");
+	if (!nome || !CPF || !contato || !dataNasc || !especialidade || !imagem || destaque === undefined) {
+	  res.status(400).json({
+		id: 0,
+		msg: "Erro... Informe nome, CPF, contato, dataNasc, especialidade, imagem, destaques do profissional.",
+	  });
+	  return;
+	}
+
+	try {
+	  const profissional = await Profissional.update(
+		{
+			nome, CPF, contato, dataNasc, especialidade, imagem, destaque
+		},
+		{
+		  where: { id },
+		}
+	  );
+	  console.log(profissional);
+	  res.status(200).json(profissional);
+	} catch (error) {
+	  res.status(400).send(error);
+	  console.log(error);
+	}
+  };
