@@ -78,6 +78,7 @@ export const profissionalDestroy = async (req, res) => {
 
   try {
     await Profissional.destroy({ where: { id } });
+	console.log("aqui");
     res.status(200).json({ msg: "Ok! Removido com Sucesso" });
   } catch (error) {
     res.status(400).send(error);
