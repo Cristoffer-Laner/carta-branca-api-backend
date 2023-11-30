@@ -9,6 +9,39 @@ export const profissionalIndex = async (req, res) => {
   }
 };
 
+export const profissionalCreate = async (req, res) => {
+	const { nome, CPF, contato, dataNasc, especialidade, imagem, destaque } =
+	  req.body;
+	console.log(req.body);
+	// se não informou estes atributos
+	if (
+	  !nome ||
+	  !CPF ||
+	  !contato ||
+	  !dataNasc ||
+	  !especialidade ||
+	  !imagem ||
+	  destaque === undefined
+	) {
+	  res.status(400).json({ id: 0, msg: "Erro... Informe os dados" });
+	  return;
+	}
+
+	try {
+	  const profissional = await Profissional.create({
+		nome,
+		CPF,
+		contato,
+		dataNasc,
+		especialidade,
+		imagem,
+		destaque,
+	  });
+	  res.status(201).json(profissional);
+	} catch (error) {
+	  res.status(400).send(error);
+	}
+  };
 export const profissionalDestaques = async (req, res) => {
   try {
     const profissional = await Profissional.findAll({
@@ -38,39 +71,7 @@ export const profissionalDestaca = async (req, res) => {
 };
 
 //criacao
-export const profissionalCreate = async (req, res) => {
-  const { nome, CPF, contato, dataNasc, especialidade, imagem, destaque } =
-    req.body;
-  console.log(req.body);
-  // se não informou estes atributos
-  if (
-    !nome ||
-    !CPF ||
-    !contato ||
-    !dataNasc ||
-    !especialidade ||
-    !imagem ||
-    destaque === undefined
-  ) {
-    res.status(400).json({ id: 0, msg: "Erro... Informe os dados" });
-    return;
-  }
 
-  try {
-    const profissional = await Profissional.create({
-      nome,
-      CPF,
-      contato,
-      dataNasc,
-      especialidade,
-      imagem,
-      destaque,
-    });
-    res.status(201).json(profissional);
-  } catch (error) {
-    res.status(400).send(error);
-  }
-};
 
 //exclusao
 export const profissionalDestroy = async (req, res) => {

@@ -19,9 +19,10 @@ async function conecta_db() {
   try {
     await sequelize.authenticate();
     console.log('Conexão com banco de dados realizada com sucesso');
+	//{alter: true}
     await Cliente.sync()
-	await Especialidade.sync({alter: true})
-    await Profissional.sync({alter: true})
+	await Especialidade.sync()
+    await Profissional.sync()
     await Avaliacao.sync()
   } catch (error) {
     console.error('Erro na conexão com o banco: ', error);
