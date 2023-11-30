@@ -1,0 +1,25 @@
+export const especialidadeCreate = async (req, res) => {
+  const { descricao } = req.body;
+  if (!descricao) {
+    res.status(400).json({ id: 0, msg: "Erro... Informe os dados" });
+    return;
+  }
+
+  try {
+    const especialidade = await Especialidade.create({
+      descricao,
+    });
+    res.status(201).json(especialidade);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+
+export const especialidadeIndex = async (req, res) => {
+	try {
+	  const especialidade = await Especialidade.findAll();
+	  res.status(200).json(especialidade);
+	} catch (error) {
+	  res.status(400).send(error);
+	}
+  };

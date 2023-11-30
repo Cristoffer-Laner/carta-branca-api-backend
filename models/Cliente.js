@@ -23,11 +23,8 @@ export const Cliente = sequelize.define('cliente', {
   },
 });
 
-// Hook (gancho) do Sequelize que é executado antes 
-// da inserção de um registro.
-// Faz a criptografia da senha e atribui o hash ao campo senha
 Cliente.beforeCreate(cliente => {
   const salt = bcrypt.genSaltSync(12)
   const hash = bcrypt.hashSync(cliente.senha, salt)
-  cliente.senha = hash  
+  cliente.senha = hash
 });

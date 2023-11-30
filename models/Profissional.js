@@ -20,11 +20,7 @@ export const Profissional = sequelize.define('profissional', {
     allowNull: false
   },
   dataNasc: {
-    type: DataTypes.DATE(),
-    allowNull: false
-  },
-  especialidade: {
-    type: DataTypes.STRING(60),
+    type: DataTypes.DATE,
     allowNull: false
   },
   imagem: {
@@ -46,3 +42,10 @@ export const Profissional = sequelize.define('profissional', {
 }, {
   paranoid: true
 });
+
+//um profissional pertence a uma especialidade
+
+//uma especialidade tem muitos profissionais
+// Especialidade.hasMany(Profissional, {
+//   foreignKey: "especialidade_id",
+// });
