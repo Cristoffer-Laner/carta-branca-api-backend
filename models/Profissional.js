@@ -1,5 +1,6 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../databases/conecta.js';
+import { Especialidade } from './Especialidade.js';
 
 export const Profissional = sequelize.define('profissional', {
   id: {
@@ -49,3 +50,19 @@ export const Profissional = sequelize.define('profissional', {
 // Especialidade.hasMany(Profissional, {
 //   foreignKey: "especialidade_id",
 // });
+
+Especialidade.hasMany(Profissional, {
+	foreignKey: {
+	  name: "especialidade_id",
+	  allowNull: true,
+	},
+	onDelete: "RESTRICT",
+	onUpdate: "CASCADE",
+});
+
+Profissional.belongsTo(Especialidade, {
+	foreignKey: {
+		name: "especialidade_id",
+		allowNull: true,
+	}
+})

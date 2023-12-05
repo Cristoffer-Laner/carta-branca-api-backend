@@ -1,6 +1,6 @@
 import { Router } from "express"
 import { clienteCreate, clienteIndex } from "./controllers/clienteController.js"
-import { profissionalAtualizar, profissionalCreate, profissionalDestaca, profissionalDestaques, profissionalDestroy, profissionalIndex, profissionalShow } from "./controllers/profissionalController.js"
+import { avaliaProfissional, profissionalAtualizar, profissionalCreate, profissionalDestaca, profissionalDestaques, profissionalDestroy, profissionalIndex, profissionalShow } from "./controllers/profissionalController.js"
 import { avaliacaoCreate, avaliacaoDestroy, avaliacaoProfissional, avaliacaoGraphDias, avaliacaoGraphEstrelas, avaliacaoIndex, dadosGerais } from "./controllers/avaliacaoController.js"
 import { loginCliente } from "./controllers/loginController.js"
 import { especialidadeCreate, especialidadeIndex } from "./controllers/especialidadeController.js"
@@ -18,6 +18,7 @@ router.get('/profissionais', profissionalIndex)
       .patch('/profissionais/destaca/:id', profissionalDestaca)
 	  .put('/profissionais/:id', profissionalAtualizar)
 	  .delete('/profissionais/:id', profissionalDestroy)
+	  .patch('/avalia_profissional/:id', avaliaProfissional)
 
 router.get('/especialidade', especialidadeIndex)
 	  .post('/especialidade', especialidadeCreate)

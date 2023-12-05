@@ -20,12 +20,12 @@ export const Especialidade = sequelize.define(
   }
 );
 
-//UMA ESPECIALIDADE PERTECE A UM PROFISSIONAL
-Especialidade.hasOne(Profissional, {
-  foreignKey: {
-    name: "especialidade_id",
-    allowNull: false,
-  },
-  onDelete: "RESTRICT",
-  onUpdate: "CASCADE",
-});
+// //UMA ESPECIALIDADE PERTECE A UM PROFISSIONAL
+// Especialidade.hasOne(Profissional, {
+//   foreignKey: {
+//     name: "especialidade_id",
+//     allowNull: false,
+//   },
+//   onDelete: "RESTRICT",
+//   onUpdate: "CASCADE",
+// });
