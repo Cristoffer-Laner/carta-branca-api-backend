@@ -4,9 +4,10 @@ import routes from './routes.js'
 
 import { sequelize } from './databases/conecta.js'
 import { Cliente } from './models/Cliente.js'
-import { Profissional } from './models/Profissional.js'
+
 import { Avaliacao } from './models/Avaliacao.js'
 import { Especialidade } from './models/Especialidade.js'
+import { Profissional } from './models/Profissional.js'
 
 const app = express()
 const port = 3004

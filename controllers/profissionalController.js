@@ -1,8 +1,9 @@
 import { Profissional } from "../models/Profissional.js";
+import { Especialidade } from "../models/Especialidade.js";
 
 export const profissionalIndex = async (req, res) => {
   try {
-    const profissional = await Profissional.findAll();
+    const profissional = await Profissional.findAll({include: Especialidade});
     res.status(200).json(profissional);
   } catch (error) {
     res.status(400).send(error);
@@ -35,7 +36,6 @@ export const profissionalCreate = async (req, res) => {
       destaque,
       especialidade_id,
     });
-    console.log(profissional);
     res.status(201).json(profissional);
   } catch (error) {
     res.status(400).send(error);
@@ -77,7 +77,6 @@ export const profissionalDestroy = async (req, res) => {
 
   try {
     await Profissional.destroy({ where: { id } });
-    console.log("aqui");
     res.status(200).json({ msg: "Ok! Removido com Sucesso" });
   } catch (error) {
     res.status(400).send(error);
@@ -97,16 +96,16 @@ export const profissionalShow = async (req, res) => {
 
 export const profissionalAtualizar = async (req, res) => {
   const { id } = req.params;
-  const { nome, CPF, contato, dataNasc, imagem, destaque, especialidade_id } = req.body;
-  console.log("aqui");
+  const { nome, CPF, contato, dataNasc, imagem, destaque, especialidade_id } =
+    req.body;
   if (
-    !nome ||
-    !CPF ||
-    !contato ||
-    !dataNasc ||
-    !imagem ||
-    destaque === undefined,
-	!especialidade_id
+    (!nome ||
+      !CPF ||
+      !contato ||
+      !dataNasc ||
+      !imagem ||
+      destaque === undefined,
+    !especialidade_id)
   ) {
     res.status(400).json({
       id: 0,
@@ -129,31 +128,32 @@ export const profissionalAtualizar = async (req, res) => {
         where: { id },
       }
     );
-    console.log(profissional);
     res.status(200).json(profissional);
   } catch (error) {
     res.status(400).send(error);
-    console.log(error);
   }
 };
 
 export const avaliaProfissional = async (req, res) => {
-	const { id } = req.params
- 	const { soma, num } = req.body
+  const { id } = req.params;
+  const { soma, num } = req.body;
 
-	if(!soma || !num ) {
-		res.status(400).json("Erro... informe os dados")
-	}
+  if (!soma || !num) {
+    res.status(400).json("Erro... informe os dados");
+  }
 
-	try {
-		const profissional = await Profissional.update({
-			soma,
-			num
-		}, {
-			where: {id}
-		})
-		res.status(200).json(profissional)
-	} catch (error) {
-		res.send(error)
-	}
-}
+  try {
+    const profissional = await Profissional.update(
+      {
+        soma,
+        num,
+      },
+      {
+        where: { id },
+      }
+    );
+    res.status(200).json(profissional);
+  } catch (error) {
+    res.send(error);
+  }
+};
